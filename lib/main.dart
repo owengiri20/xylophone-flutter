@@ -9,7 +9,8 @@ class XylophoneApp extends StatelessWidget {
     final player = new AudioCache();
     player.play("note$note.wav");
   }
-  List<int> notes = [1,2,3,4,5,6,7];
+
+  List<int> notes = [1, 2, 3, 4, 5, 6, 7];
   List<Color> colours = [
     Colors.amber,
     Colors.pink,
@@ -21,24 +22,32 @@ class XylophoneApp extends StatelessWidget {
     Colors.lightBlueAccent,
   ];
 
+  Expanded buildKey(Color colour, int idx) {
+    return
+     Expanded(
+      child: (FlatButton(
+        padding: EdgeInsets.all(0),
+        color: colour,
+        onPressed: () {
+          playSound(idx);
+        },
+        child: Text("note $idx"),
+      )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black54,
         body: SafeArea(
           child: Container(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                for (var i in notes) (
-                    FlatButton(
-                      padding: EdgeInsets.all(0),
-                      color: colours[i],
-                      onPressed: () {
-                        playSound(i);
-                      },
-                      child: Text("note $i"),
-                    )
-                ),
+                for (var i in notes)
+                 buildKey(colours[i], i)
               ],
             ),
           ),
